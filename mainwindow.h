@@ -6,6 +6,7 @@
 #include <QListWidgetItem>
 #include<QNetworkReply>
 #include<forserverconnection.h>
+#include<constants.h>
 
 namespace Ui {
 class MainWindow;
@@ -18,6 +19,9 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+
+
+    Constants *constants;
 
 private slots:
     void on_pushButtonLogin_clicked();
@@ -39,6 +43,8 @@ private slots:
 
     void on_btnPreviousNewPage3_clicked();
 
+    void on_pushButtonFileNewentry_clicked();
+
 private:
     Ui::MainWindow *ui;
 
@@ -53,6 +59,7 @@ public:
     void setGuiForNewEntry();
     void setGuiForEditEntry();
     void setGuiForViewEntry();
+    void setGuiForMainPage();
 
 
     QStringList listYesNo;

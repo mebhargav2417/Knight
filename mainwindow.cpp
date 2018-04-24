@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "constants.h"
 #include <QDebug>
 #include <QJsonObject>
 #include <forserverconnection.h>
@@ -10,6 +11,8 @@
 #include<QString>
 #include<QNetworkReply>
 #include<QNetworkRequest>
+#include<QFileDialog>
+#include "xlsxdocument.h"
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -18,11 +21,9 @@ MainWindow::MainWindow(QWidget *parent) :
 {
 
     ui->setupUi(this);
+    constants->entryType = 0;
+    constants->registrationType = 0;
     setGui();
-    listYesNo<<"Select"<<"Yes"<<"No";
-    listBusinessType<<"Select Business Type"<<"Individual"<<"Other";
-    listGender<<"Select Sex"<<"Male"<<"Female";
-    listBankAcc<<"Select"<<"Savings"<<"Current"<<"OD";
     QSettings settings("D:/settings.ini",QSettings::IniFormat);
 //    settings.beginGroup("settings");
 //    qDebug()<<settings.value("url").toString();
@@ -35,7 +36,15 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButtonLogin_clicked()
 {
-    ui->stackedWidget->setCurrentWidget(ui->homeWidget);
+    if(ui->lineEditUserId->text().length() != 0){
+        if(ui->lineEditPwd->text().length() != 0) {
+            ui->stackedWidget->setCurrentWidget(ui->homeWidget);
+        } else {
+            ui->label_status_mainpage->setText("Password required");
+        }
+    } else {
+        ui->label_status_mainpage->setText("Userid required");
+    }
 }
 
 void MainWindow::makeConnection(QString url, QJsonObject data)
@@ -70,14 +79,21 @@ void MainWindow::slotRequestFinished(QNetworkReply *reply)
 
 void MainWindow::on_pushButtonLogout_clicked()
 {
-    ui->stackedWidget->setCurrentWidget(ui->mainWidget);
+    setGuiForMainPage();
 }
 
 void MainWindow::setGui()
 {
     // init all gui here
+    listYesNo<<"Select"<<"Yes"<<"No";
+    listBusinessType<<"Select Business Type"<<"Individual"<<"Other";
+    listGender<<"Select Sex"<<"Male"<<"Female";
+    listBankAcc<<"Select"<<"Savings"<<"Current"<<"OD";
     ui->stackedWidget->setCurrentWidget(ui->mainWidget);
     ui->stackedWidgetHome->setCurrentWidget(ui->pageHomePlain);
+    ui->lineEditUserId->setText("");
+    ui->lineEditPwd->setText("");
+    ui->label_status_mainpage->setText("");
 }
 
 void MainWindow::setGuiForRegistration()
@@ -134,6 +150,14 @@ void MainWindow::setGuiForRegistration()
     ui->editIFSC4->setText("");
 }
 
+void MainWindow::setGuiForMainPage()
+{
+    ui->lineEditUserId->setText("");
+    ui->lineEditPwd->setText("");
+    ui->label_status_mainpage->setText("");
+    ui->stackedWidget->setCurrentWidget(ui->mainWidget);
+}
+
 
 
 
@@ -178,4 +202,43 @@ void MainWindow::on_btnNextRegPage2_clicked()
 void MainWindow::on_btnPreviousNewPage3_clicked()
 {
     ui->stackedWidgetHome->setCurrentWidget(ui->pageNewReg2);
+}
+
+void MainWindow::on_pushButtonFileNewentry_clicked()
+{
+//    QString filename =  QFileDialog::getOpenFileName(
+//              this,
+//              "Open Document",
+//              QDir::currentPath(),
+//              "All files (*.*) ;; Document files (*.xlsx *.rtf);; PNG files (*.png)");
+    QString filename =  QFileDialog::getOpenFileName(
+              this,
+              "Open Document",
+              QDir::currentPath(),
+              "Document files (*.xlsx)");
+
+        if( !filename.isNull() )
+        {
+          qDebug() << "selected file path : " << filename.toUtf8();
+          QXlsx::Document xlsx(filename.toUtf8());
+//          qDebug()<<xlsx.read("A1");
+//          qDebug()<<xlsx.read("A2");
+//          qDebug()<<xlsx.read("A3");
+//          qDebug()<<xlsx.read("A4");
+//          qDebug()<<xlsx.read("A5");
+//          qDebug()<<xlsx.read("A6");
+//          qDebug()<<xlsx.read("A7");
+
+                QXlsx::CellRange *range;
+                 qDebug()<<range->rowCount();
+          for (int row=1; row<10; ++row) {
+                  if (QXlsx::Cell *cell=xlsx.cellAt(row, 1))
+                      qDebug()<<cell->value();
+                  if (QXlsx::Cell *cell=xlsx.cellAt(row, 2))
+                      qDebug()<<cell->value();
+              }
+
+//              xlsx.write("A1", "Hello Qt!");
+//              xlsx.saveAs("Test.xlsx");
+        }
 }

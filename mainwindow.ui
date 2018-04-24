@@ -51,7 +51,11 @@
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QLineEdit" name="lineEditUserId"/>
+        <widget class="QLineEdit" name="lineEditUserId">
+         <property name="maxLength">
+          <number>48</number>
+         </property>
+        </widget>
        </item>
        <item row="1" column="0">
         <widget class="QLabel" name="labelPwd">
@@ -61,7 +65,14 @@
         </widget>
        </item>
        <item row="1" column="1">
-        <widget class="QLineEdit" name="lineEditPwd"/>
+        <widget class="QLineEdit" name="lineEditPwd">
+         <property name="maxLength">
+          <number>48</number>
+         </property>
+         <property name="echoMode">
+          <enum>QLineEdit::Password</enum>
+         </property>
+        </widget>
        </item>
        <item row="2" column="1">
         <layout class="QHBoxLayout" name="horizontalLayout">
@@ -127,7 +138,7 @@
        </rect>
       </property>
       <property name="currentIndex">
-       <number>5</number>
+       <number>7</number>
       </property>
       <widget class="QWidget" name="pageHomePlain"/>
       <widget class="QWidget" name="pageNewReg1">
@@ -1121,13 +1132,115 @@
          <rect>
           <x>370</x>
           <y>30</y>
-          <width>47</width>
-          <height>13</height>
+          <width>61</width>
+          <height>16</height>
          </rect>
         </property>
         <property name="text">
          <string>New Entry</string>
         </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QLabel" name="labelNewEntry">
+        <property name="geometry">
+         <rect>
+          <x>90</x>
+          <y>131</y>
+          <width>551</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButtonFileNewentry">
+        <property name="geometry">
+         <rect>
+          <x>670</x>
+          <y>150</y>
+          <width>75</width>
+          <height>23</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Select File</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButtonuploadentry">
+        <property name="geometry">
+         <rect>
+          <x>670</x>
+          <y>220</y>
+          <width>75</width>
+          <height>23</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Upload</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="labelUploadEntry">
+        <property name="geometry">
+         <rect>
+          <x>90</x>
+          <y>200</y>
+          <width>551</width>
+          <height>61</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+       </widget>
+       <widget class="QWidget" name="">
+        <property name="geometry">
+         <rect>
+          <x>80</x>
+          <y>70</y>
+          <width>701</width>
+          <height>25</height>
+         </rect>
+        </property>
+        <layout class="QGridLayout" name="gridLayout_7">
+         <item row="0" column="0">
+          <widget class="QPushButton" name="pushButtonSalesEntry">
+           <property name="text">
+            <string>Sales</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QPushButton" name="pushButtonPurchasesEntry">
+           <property name="text">
+            <string>Purchases</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="2">
+          <widget class="QPushButton" name="pushButtonNPentry">
+           <property name="text">
+            <string>Net Profit</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="3">
+          <widget class="QPushButton" name="pushButtonreturnstatusentry">
+           <property name="text">
+            <string>Return Status</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="4">
+          <widget class="QPushButton" name="pushButtonBlankFields">
+           <property name="text">
+            <string>Balance and Other</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </widget>
       </widget>
      </widget>
