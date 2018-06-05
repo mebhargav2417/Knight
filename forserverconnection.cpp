@@ -5,6 +5,7 @@
 #include<QString>
 #include<QNetworkReply>
 #include<QNetworkRequest>
+#include<mainwindow.h>
 
 ForServerConnection::ForServerConnection()
 {
